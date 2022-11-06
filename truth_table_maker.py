@@ -2,7 +2,7 @@
 from modules.formula import *
 
 
-def make_truth_table(atoms: list[Atom], formulas: list[Formula]) -> list[list[str]]:
+def make_truth_table(atoms: list[Atom]) -> list[list[str]]:
 	table = []
 
 	header = [atom.name for atom in atoms]
@@ -23,10 +23,22 @@ def get_possibilities(number_of_atoms: int) -> list[list[str]]:
 			['T'],
 			['F'],
 		]
-	else:
+	elif number_of_atoms == 2:
 		return [
 			['T', 'T'],
 			['T', 'F'],
 			['F', 'T'],
 			['F', 'F'],
+		]
+	else:
+		return [
+			['T', 'T', 'T'],
+			['T', 'T', 'F'],
+			['T', 'F', 'T'],
+			['T', 'F', 'F'],
+
+			['F', 'T', 'T'],
+			['F', 'T', 'F'],
+			['F', 'F', 'T'],
+			['F', 'F', 'F'],
 		]
