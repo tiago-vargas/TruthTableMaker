@@ -50,3 +50,34 @@ def test_truth_table_for_three_atoms():
 		['T', 'T', 'F'],
 		['T', 'T', 'T'],
 	]
+
+
+def test_truth_table_for_four_atoms():
+	p = Atom('p')
+	q = Atom('q')
+	r = Atom('r')
+	s = Atom('s')
+
+	table = make_truth_table(atoms=[p, q, r, s])
+
+	assert table == [
+		['p', 'q', 'r', 's'],
+
+		['F', 'F', 'F', 'F'],
+		['F', 'F', 'F', 'T'],
+		['F', 'F', 'T', 'F'],
+		['F', 'F', 'T', 'T'],
+		['F', 'T', 'F', 'F'],
+		['F', 'T', 'F', 'T'],
+		['F', 'T', 'T', 'F'],
+		['F', 'T', 'T', 'T'],
+
+		['T', 'F', 'F', 'F'],
+		['T', 'F', 'F', 'T'],
+		['T', 'F', 'T', 'F'],
+		['T', 'F', 'T', 'T'],
+		['T', 'T', 'F', 'F'],
+		['T', 'T', 'F', 'T'],
+		['T', 'T', 'T', 'F'],
+		['T', 'T', 'T', 'T'],
+	]

@@ -18,27 +18,34 @@ def make_truth_table(atoms: list[Atom]) -> list[list[str]]:
 
 
 def get_possibilities(number_of_atoms: int) -> list[list[str]]:
-	if number_of_atoms == 1:
-		return [
-			['F'],
-			['T'],
-		]
-	elif number_of_atoms == 2:
-		return [
-			['F', 'F'],
-			['F', 'T'],
-			['T', 'F'],
-			['T', 'T'],
-		]
-	else:
-		return [
-			['F', 'F', 'F'],
-			['F', 'F', 'T'],
-			['F', 'T', 'F'],
-			['F', 'T', 'T'],
+	result = []
 
-			['T', 'F', 'F'],
-			['T', 'F', 'T'],
-			['T', 'T', 'F'],
-			['T', 'T', 'T'],
-		]
+	binary_numbers = get_binary_numbers_as_strings(number_of_atoms)
+
+	for string in binary_numbers:
+		result.append(convert_binary_numbers_to_T_or_F(string))
+
+	return result
+
+
+def get_binary_numbers_as_strings(number_of_atoms: int) -> list[str]:
+	counter = 0
+
+	results = []
+
+	for counter in range(2 ** number_of_atoms):
+		results.append(f'{counter:0{number_of_atoms}b}')
+
+	return results
+
+
+def convert_binary_numbers_to_T_or_F(string: str) -> list[str]:
+	result = []
+
+	for character in string:
+		if character == '0':
+			result.append('F')
+		elif character == '1':
+			result.append('T')
+
+	return result
