@@ -9,8 +9,8 @@ def test_truth_table_for_single_atom():
 
 	assert table == [
 		['p'],
-		['T'],
 		['F'],
+		['T'],
 	]
 
 
@@ -23,10 +23,10 @@ def test_truth_table_for_two_atoms():
 	assert table == [
 		['p', 'q'],
 
-		['T', 'T'],
-		['T', 'F'],
-		['F', 'T'],
 		['F', 'F'],
+		['F', 'T'],
+		['T', 'F'],
+		['T', 'T'],
 	]
 
 
@@ -40,13 +40,13 @@ def test_truth_table_for_three_atoms():
 	assert table == [
 		['p', 'q', 'r'],
 
-		['T', 'T', 'T'],
-		['T', 'T', 'F'],
-		['T', 'F', 'T'],
-		['T', 'F', 'F'],
-
-		['F', 'T', 'T'],
-		['F', 'T', 'F'],
-		['F', 'F', 'T'],
 		['F', 'F', 'F'],
+		['F', 'F', 'T'],
+		['F', 'T', 'F'],
+		['F', 'T', 'T'],
+
+		['T', 'F', 'F'],
+		['T', 'F', 'T'],
+		['T', 'T', 'F'],
+		['T', 'T', 'T'],
 	]

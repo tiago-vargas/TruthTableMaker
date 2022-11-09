@@ -20,25 +20,25 @@ def make_truth_table(atoms: list[Atom]) -> list[list[str]]:
 def get_possibilities(number_of_atoms: int) -> list[list[str]]:
 	if number_of_atoms == 1:
 		return [
-			['T'],
 			['F'],
+			['T'],
 		]
 	elif number_of_atoms == 2:
 		return [
-			['T', 'T'],
-			['T', 'F'],
-			['F', 'T'],
 			['F', 'F'],
+			['F', 'T'],
+			['T', 'F'],
+			['T', 'T'],
 		]
 	else:
 		return [
-			['T', 'T', 'T'],
-			['T', 'T', 'F'],
-			['T', 'F', 'T'],
-			['T', 'F', 'F'],
-
-			['F', 'T', 'T'],
-			['F', 'T', 'F'],
-			['F', 'F', 'T'],
 			['F', 'F', 'F'],
+			['F', 'F', 'T'],
+			['F', 'T', 'F'],
+			['F', 'T', 'T'],
+
+			['T', 'F', 'F'],
+			['T', 'F', 'T'],
+			['T', 'T', 'F'],
+			['T', 'T', 'T'],
 		]
