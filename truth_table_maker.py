@@ -18,27 +18,36 @@ def make_truth_table(atoms: list[Atom]) -> list[list[str]]:
 
 
 def get_possibilities(number_of_atoms: int) -> list[list[str]]:
-	if number_of_atoms == 1:
-		return [
-			['F'],
-			['T'],
-		]
-	elif number_of_atoms == 2:
-		return [
-			['F', 'F'],
-			['F', 'T'],
-			['T', 'F'],
-			['T', 'T'],
-		]
-	else:
-		return [
-			['F', 'F', 'F'],
-			['F', 'F', 'T'],
-			['F', 'T', 'F'],
-			['F', 'T', 'T'],
+	result = []
 
-			['T', 'F', 'F'],
-			['T', 'F', 'T'],
-			['T', 'T', 'F'],
-			['T', 'T', 'T'],
-		]
+	if number_of_atoms == 1:
+		result.append(convert_binary_numbers_to_T_or_F('0'))
+		result.append(convert_binary_numbers_to_T_or_F('1'))
+	elif number_of_atoms == 2:
+		result.append(convert_binary_numbers_to_T_or_F('00'))
+		result.append(convert_binary_numbers_to_T_or_F('01'))
+		result.append(convert_binary_numbers_to_T_or_F('10'))
+		result.append(convert_binary_numbers_to_T_or_F('11'))
+	else:
+		result.append(convert_binary_numbers_to_T_or_F('000'))
+		result.append(convert_binary_numbers_to_T_or_F('001'))
+		result.append(convert_binary_numbers_to_T_or_F('010'))
+		result.append(convert_binary_numbers_to_T_or_F('011'))
+		result.append(convert_binary_numbers_to_T_or_F('100'))
+		result.append(convert_binary_numbers_to_T_or_F('101'))
+		result.append(convert_binary_numbers_to_T_or_F('110'))
+		result.append(convert_binary_numbers_to_T_or_F('111'))
+
+	return result
+
+
+def convert_binary_numbers_to_T_or_F(string: str) -> list[str]:
+	result = []
+
+	for character in string:
+		if character == '0':
+			result.append('F')
+		elif character == '1':
+			result.append('T')
+
+	return result
