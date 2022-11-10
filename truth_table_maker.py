@@ -57,7 +57,7 @@ def convert_binary_numbers_to_T_or_F(string: str) -> list[str]:
 	return result
 
 
-def get_formula_valoration(formula: Formula, atoms_valoration: list[str], counter: int) -> str:
+def get_formula_valoration(formula: Formula, atoms_valoration: list[str], counter: int) -> list[str]:
 	if isinstance(formula, And):
 		if atoms_valoration[0] == atoms_valoration[1] == 'T':
 			return ['T']
