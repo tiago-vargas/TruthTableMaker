@@ -37,7 +37,7 @@ class TestAtoms:
 		]
 
 
-class TestFormulas:
+class TestOneConnectiveWithOnlyAtoms:
 	def test_conjunction_between_two_atoms(self):
 		p = Atom('p')
 		q = Atom('q')
@@ -83,4 +83,16 @@ class TestFormulas:
 			['F', 'T',    'T'   ],
 			['T', 'F',    'F'   ],
 			['T', 'T',    'T'   ],
+		]
+
+
+	def test_negation_of_atom(self):
+		p = Atom('p')
+
+		table = make_truth_table(atoms=[p], formulas=[Not(p)])
+
+		assert table == [
+			['p', '(¬p)'],
+			['F',   'T' ],
+			['T',   'F' ],
 		]
