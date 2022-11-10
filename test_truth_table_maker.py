@@ -52,3 +52,19 @@ class TestFormulas:
 			['T', 'F',    'F'   ],
 			['T', 'T',    'T'   ],
 		]
+
+
+	def test_disjunction_between_two_atoms(self):
+		p = Atom('p')
+		q = Atom('q')
+
+		table = make_truth_table(atoms=[p, q], formulas=[Or(p, q)])
+
+		assert table == [
+			['p', 'q', '(p ∨ q)'],
+
+			['F', 'F',    'F'   ],
+			['F', 'T',    'T'   ],
+			['T', 'F',    'T'   ],
+			['T', 'T',    'T'   ],
+		]
