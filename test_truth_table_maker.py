@@ -36,3 +36,19 @@ class TestAtoms:
 			['T', 'T', 'T'],
 		]
 
+
+class TestFormulas:
+	def test_conjunction_between_two_atoms(self):
+		p = Atom('p')
+		q = Atom('q')
+
+		table = make_truth_table(atoms=[p, q], formulas=[And(p, q)])
+
+		assert table == [
+			['p', 'q', '(p ∧ q)'],
+
+			['F', 'F',    'F'   ],
+			['F', 'T',    'F'   ],
+			['T', 'F',    'F'   ],
+			['T', 'T',    'T'   ],
+		]

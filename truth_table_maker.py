@@ -2,22 +2,28 @@
 from modules.formula import *
 
 
-def make_truth_table(atoms: list[Atom]) -> list[list[str]]:
+def make_truth_table(atoms: list[Atom], formulas: list[Formula] = []) -> list[list[str]]:
 	table = []
 
 	header = [atom.name for atom in atoms]
+	formulas_header = [formula.__str__() for formula in formulas]
 
-	table.append(header)
+	table.append(header + formulas_header)
 
-	possibilities = get_possibilities(len(atoms))
+	atoms_valorations = get_atoms_valoration_possibilities(len(atoms))
 
-	for possibility in possibilities:
-		table.append(possibility)
+	k = 0
+	formula_valoration = []
+	for atoms_valoration in atoms_valorations:
+		if len(formulas) > 0:
+			formula_valoration = get_formula_valoration(formulas[0], atoms_valoration, k)
+		table.append(atoms_valoration + formula_valoration)
+		k += 1
 
 	return table
 
 
-def get_possibilities(number_of_atoms: int) -> list[list[str]]:
+def get_atoms_valoration_possibilities(number_of_atoms: int) -> list[list[str]]:
 	result = []
 
 	binary_numbers = get_binary_numbers_as_strings(number_of_atoms)
@@ -49,3 +55,10 @@ def convert_binary_numbers_to_T_or_F(string: str) -> list[str]:
 			result.append('T')
 
 	return result
+
+
+def get_formula_valoration(formula: And, atoms_valoration: list[str], counter: int) -> str:
+	if atoms_valoration[0] == atoms_valoration[1] == 'T':
+		return ['T']
+	else:
+		return ['F']
