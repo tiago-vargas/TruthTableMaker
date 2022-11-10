@@ -68,3 +68,19 @@ class TestFormulas:
 			['T', 'F',    'T'   ],
 			['T', 'T',    'T'   ],
 		]
+
+
+	def test_implication_between_two_atoms(self):
+		p = Atom('p')
+		q = Atom('q')
+
+		table = make_truth_table(atoms=[p, q], formulas=[Implies(p, q)])
+
+		assert table == [
+			['p', 'q', '(p → q)'],
+
+			['F', 'F',    'T'   ],
+			['F', 'T',    'T'   ],
+			['T', 'F',    'F'   ],
+			['T', 'T',    'T'   ],
+		]

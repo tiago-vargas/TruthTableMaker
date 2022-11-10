@@ -63,8 +63,13 @@ def get_formula_valoration(formula: Formula, atoms_valoration: list[str], counte
 			return ['T']
 		else:
 			return ['F']
-	if isinstance(formula, Or):
+	elif isinstance(formula, Or):
 		if atoms_valoration[0] == atoms_valoration[1] == 'F':
+			return ['F']
+		else:
+			return ['T']
+	elif isinstance(formula, Implies):
+		if atoms_valoration[0] == 'T' and atoms_valoration[1] == 'F':
 			return ['F']
 		else:
 			return ['T']
