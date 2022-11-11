@@ -5,17 +5,19 @@ from modules.formula import *
 def make_truth_table(atoms: list[Atom], formulas: list[Formula] = []) -> list[list[str]]:
 	table = []
 
-	header = [atom.name for atom in atoms]
+	atoms_header = [atom.name for atom in atoms]
 	formulas_header = [formula.__str__() for formula in formulas]
 
-	table.append(header + formulas_header)
+	header = atoms_header + formulas_header
+
+	table.append(header)
 
 	atoms_valorations = get_atoms_valoration_possibilities(len(atoms))
 
 	formula_valoration = []
 	for atoms_valoration in atoms_valorations:
 		if len(formulas) > 0:
-			formula_valoration = get_formula_valoration(formulas[0], atoms_valoration)
+			formula_valoration = [get_formula_valoration(formulas[0], atoms_valoration)]
 		table.append(atoms_valoration + formula_valoration)
 
 	return table
@@ -55,24 +57,24 @@ def convert_binary_numbers_to_T_or_F(string: str) -> list[str]:
 	return result
 
 
-def get_formula_valoration(formula: Formula, atoms_valoration: list[str]) -> list[str]:
+def get_formula_valoration(formula: Formula, atoms_valoration: list[str]) -> str:
 	if isinstance(formula, Not):
 		if atoms_valoration[0] == 'F':
-			return ['T']
+			return 'T'
 		else:
-			return ['F']
+			return 'F'
 	elif isinstance(formula, And):
 		if atoms_valoration[0] == atoms_valoration[1] == 'T':
-			return ['T']
+			return 'T'
 		else:
-			return ['F']
+			return 'F'
 	elif isinstance(formula, Or):
 		if atoms_valoration[0] == atoms_valoration[1] == 'F':
-			return ['F']
+			return 'F'
 		else:
-			return ['T']
+			return 'T'
 	elif isinstance(formula, Implies):
 		if atoms_valoration[0] == 'T' and atoms_valoration[1] == 'F':
-			return ['F']
+			return 'F'
 		else:
-			return ['T']
+			return 'T'
