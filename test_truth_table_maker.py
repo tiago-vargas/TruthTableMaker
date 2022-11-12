@@ -121,3 +121,28 @@ class TestTwoFormulas:
 			['T', 'T', 'F',    'T'   ,    'F'   ],
 			['T', 'T', 'T',    'T'   ,    'T'   ],
 		]
+
+
+class TestMultipleFormulas:
+	def test_four_formulas_between_atoms(self):
+		p = Atom('p')
+		q = Atom('q')
+		r = Atom('r')
+
+		formulas = [And(p, q), And(q, r), Or(p, r), Implies(p, r)]
+
+		table = make_truth_table(atoms=[p, q, r], formulas=formulas)
+
+		assert table == [
+			['p', 'q', 'r', '(p ∧ q)', '(q ∧ r)', '(p ∨ r)', '(p → r)'],
+
+			['F', 'F', 'F',    'F'   ,    'F'   ,    'F'   ,    'T'   ],
+			['F', 'F', 'T',    'F'   ,    'F'   ,    'T'   ,    'T'   ],
+			['F', 'T', 'F',    'F'   ,    'F'   ,    'F'   ,    'T'   ],
+			['F', 'T', 'T',    'F'   ,    'T'   ,    'T'   ,    'T'   ],
+
+			['T', 'F', 'F',    'F'   ,    'F'   ,    'T'   ,    'F'   ],
+			['T', 'F', 'T',    'F'   ,    'F'   ,    'T'   ,    'T'   ],
+			['T', 'T', 'F',    'T'   ,    'F'   ,    'T'   ,    'F'   ],
+			['T', 'T', 'T',    'T'   ,    'T'   ,    'T'   ,    'T'   ],
+		]
