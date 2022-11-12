@@ -16,8 +16,14 @@ def make_truth_table(atoms: list[Atom], formulas: list[Formula]=[]) -> list[list
 		if formulas == []:
 			row = atoms_valoration
 		else:
-			formula_valoration = get_formula_valoration(formulas[0], atoms_valoration)
-			row = atoms_valoration + [formula_valoration]
+			if len(formulas) == 1:
+				formula_valoration = get_formula_valoration(formulas[0], atoms_valoration)
+				row = atoms_valoration + [formula_valoration]
+			elif len(formulas) == 2:
+				formula_1_valoration = get_formula_valoration(formulas[0], atoms_valoration[0:2])
+				formula_2_valoration = get_formula_valoration(formulas[1], atoms_valoration[1:])
+
+				row = atoms_valoration + [formula_1_valoration] + [formula_2_valoration]
 
 		table.append(row)
 

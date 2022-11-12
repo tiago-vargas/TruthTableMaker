@@ -96,3 +96,28 @@ class TestOneConnectiveWithOnlyAtoms:
 			['F',   'T' ],
 			['T',   'F' ],
 		]
+
+
+class TestTwoFormulas:
+	def test_two_conjuntions_between_atoms(self):
+		p = Atom('p')
+		q = Atom('q')
+		r = Atom('r')
+
+		formulas = [And(p, q), And(q, r)]
+
+		table = make_truth_table(atoms=[p, q, r], formulas=formulas)
+
+		assert table == [
+			['p', 'q', 'r', '(p ∧ q)', '(q ∧ r)'],
+
+			['F', 'F', 'F',    'F'   ,    'F'   ],
+			['F', 'F', 'T',    'F'   ,    'F'   ],
+			['F', 'T', 'F',    'F'   ,    'F'   ],
+			['F', 'T', 'T',    'F'   ,    'T'   ],
+
+			['T', 'F', 'F',    'F'   ,    'F'   ],
+			['T', 'F', 'T',    'F'   ,    'F'   ],
+			['T', 'T', 'F',    'T'   ,    'F'   ],
+			['T', 'T', 'T',    'T'   ,    'T'   ],
+		]
