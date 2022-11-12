@@ -13,25 +13,7 @@ def make_truth_table(atoms: list[Atom], formulas: list[Formula]=[]) -> list[list
 	atoms_valorations = get_all_possible_valorations_for_atoms(len(atoms))
 
 	for atoms_valoration in atoms_valorations:
-		if formulas == []:
-			row = atoms_valoration
-		else:
-			if len(formulas) == 1:
-				formula_valoration = get_formula_valoration(formulas[0], atoms_valoration)
-				row = atoms_valoration + [formula_valoration]
-			elif len(formulas) == 2:
-				formula_1_valoration = get_formula_valoration(formulas[0], atoms_valoration[0:2])
-				formula_2_valoration = get_formula_valoration(formulas[1], atoms_valoration[1:])
-
-				row = atoms_valoration + [formula_1_valoration] + [formula_2_valoration]
-
-			elif len(formulas) == 4:
-				formula_1_valoration = get_formula_valoration(formulas[0], atoms_valoration[0:2])
-				formula_2_valoration = get_formula_valoration(formulas[1], atoms_valoration[1:])
-				formula_3_valoration = get_formula_valoration(formulas[2], atoms_valoration[::2])
-				formula_4_valoration = get_formula_valoration(formulas[3], atoms_valoration[::2])
-
-				row = atoms_valoration + [formula_1_valoration] + [formula_2_valoration] + [formula_3_valoration] + [formula_4_valoration]
+		row = get_valoration_of_all_formulas(formulas, atoms_valoration)
 
 		table.append(row)
 
@@ -93,3 +75,22 @@ def get_formula_valoration(formula: Formula, atoms_valoration: list[str]) -> str
 			return 'F'
 		else:
 			return 'T'
+
+
+def get_valoration_of_all_formulas(formulas: list[Formula], atoms_valoration: list[str]) -> list[str]:
+	formulas_valoration = []
+
+	if len(formulas) == 1:
+		formulas_valoration.append(get_formula_valoration(formulas[0], atoms_valoration))
+	elif len(formulas) == 2:
+		formulas_valoration.append(get_formula_valoration(formulas[0], atoms_valoration[0:2]))
+		formulas_valoration.append(get_formula_valoration(formulas[1], atoms_valoration[1:]))
+	elif len(formulas) == 4:
+		formulas_valoration.append(get_formula_valoration(formulas[0], atoms_valoration[0:2]))
+		formulas_valoration.append(get_formula_valoration(formulas[1], atoms_valoration[1:]))
+		formulas_valoration.append(get_formula_valoration(formulas[2], atoms_valoration[::2]))
+		formulas_valoration.append(get_formula_valoration(formulas[3], atoms_valoration[::2]))
+
+	row = atoms_valoration + formulas_valoration
+
+	return row
