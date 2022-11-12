@@ -1,35 +1,36 @@
-
 from modules.formula import *
 
 
-def make_truth_table(atoms: list[Atom], formulas: list[Formula] = []) -> list[list[str]]:
+def make_truth_table(atoms: list[Atom], formulas: list[Formula]=[]) -> list[list[str]]:
 	table = []
 
 	atoms_header = [atom.name for atom in atoms]
 	formulas_header = [formula.__str__() for formula in formulas]
 
 	header = atoms_header + formulas_header
-
 	table.append(header)
 
-	atoms_valorations = get_atoms_valoration_possibilities(len(atoms))
+	atoms_valorations = get_all_possible_valorations_for_atoms(len(atoms))
 
-	formula_valoration = []
 	for atoms_valoration in atoms_valorations:
-		if len(formulas) > 0:
-			formula_valoration = [get_formula_valoration(formulas[0], atoms_valoration)]
-		table.append(atoms_valoration + formula_valoration)
+		if formulas == []:
+			row = atoms_valoration
+		else:
+			formula_valoration = get_formula_valoration(formulas[0], atoms_valoration)
+			row = atoms_valoration + [formula_valoration]
+
+		table.append(row)
 
 	return table
 
 
-def get_atoms_valoration_possibilities(number_of_atoms: int) -> list[list[str]]:
+def get_all_possible_valorations_for_atoms(number_of_atoms: int) -> list[list[str]]:
 	result = []
 
 	binary_numbers = get_binary_numbers_as_strings(number_of_atoms)
 
 	for string in binary_numbers:
-		result.append(convert_binary_numbers_to_T_or_F(string))
+		result.append(convert_binary_digits_to_T_or_F(string))
 
 	return result
 
@@ -45,7 +46,7 @@ def get_binary_numbers_as_strings(number_of_atoms: int) -> list[str]:
 	return results
 
 
-def convert_binary_numbers_to_T_or_F(string: str) -> list[str]:
+def convert_binary_digits_to_T_or_F(string: str) -> list[str]:
 	result = []
 
 	for character in string:
