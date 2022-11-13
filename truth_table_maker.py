@@ -4,36 +4,48 @@ from modules.formula import *
 def make_truth_table(atoms: list[Atom], formulas: list[Formula]=[]) -> list[list[str]]:
 	table = []
 
-	atoms_header = [atom.name for atom in atoms]
-	formulas_header = [formula.__str__() for formula in formulas]
-
-	header = atoms_header + formulas_header
+	header = _get_truth_table_header(atoms, formulas)
 	table.append(header)
 
-	atoms_truth_values = get_all_possible_truth_values_for_atoms(len(atoms))
-
-	for atoms_truth_value in atoms_truth_values:
-		row = get_truth_values_of_all_formulas(formulas, atoms_truth_value)
-
+	rows = _get_truth_table_rows(atoms, formulas)
+	for row in rows:
 		table.append(row)
 
 	return table
 
 
+def _get_truth_table_header(atoms: list[Atom], formulas: list[Formula]) -> list[str]:
+	atoms_header = [atom.name for atom in atoms]
+	formulas_header = [formula.__str__() for formula in formulas]
+
+	header = atoms_header + formulas_header
+
+	return header
+
+
+def _get_truth_table_rows(atoms: list[Atom], formulas: list[Formula]) -> list[list[str]]:
+	rows = []
+
+	possible_truth_values_for_atoms = get_all_possible_truth_values_for_atoms(len(atoms))
+	for atoms_truth_value in possible_truth_values_for_atoms:
+		row = get_truth_values_of_all_formulas(formulas, atoms_truth_value)
+		rows.append(row)
+
+	return rows
+
+
 def get_all_possible_truth_values_for_atoms(number_of_atoms: int) -> list[list[str]]:
 	result = []
 
-	binary_numbers = get_binary_numbers_as_strings(number_of_atoms)
+	binary_numbers = _get_binary_numbers_as_strings(number_of_atoms)
 
-	for string in binary_numbers:
-		result.append(convert_binary_digits_to_T_or_F(string))
+	for number in binary_numbers:
+		result.append(_convert_digits_of_binary_number_to_T_or_F(number))
 
 	return result
 
 
-def get_binary_numbers_as_strings(number_of_atoms: int) -> list[str]:
-	counter = 0
-
+def _get_binary_numbers_as_strings(number_of_atoms: int) -> list[str]:
 	results = []
 
 	for counter in range(2 ** number_of_atoms):
@@ -42,7 +54,7 @@ def get_binary_numbers_as_strings(number_of_atoms: int) -> list[str]:
 	return results
 
 
-def convert_binary_digits_to_T_or_F(string: str) -> list[str]:
+def _convert_digits_of_binary_number_to_T_or_F(string: str) -> list[str]:
 	result = []
 
 	for character in string:
